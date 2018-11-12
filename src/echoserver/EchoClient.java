@@ -11,10 +11,15 @@ public class EchoClient {
 
 	public static void main(String[] args) throws IOException {
 		EchoClient client = new EchoClient();
-		client.start();
+
+		try {
+			client.start();
+		} catch (java.net.ConnectException ce) {
+			System.out.println("Couldn't connect to server. Make sure you have a server running!");
+		}
 	}
 
-	private void start() throws IOException {
+	private void start() throws IOException, java.net.ConnectException {
 		// set up the socket for the threaded pieces to use
 		Socket socket = new Socket("localhost", PORT_NUMBER);
 
@@ -26,7 +31,13 @@ public class EchoClient {
 		// run each thread's run() method and wait for them to finish
 		readKeyboard.start();
 		writeToScreen.start();
-		readKeyboard.join();
-		writeToScreen.join();
+
+		try {
+			readKeyboard.join();
+			writeToScreen.join();
+		} catch (InterruptedException ie) {
+			System.out.println("Poo.");
+		}
+
 	}
 }
