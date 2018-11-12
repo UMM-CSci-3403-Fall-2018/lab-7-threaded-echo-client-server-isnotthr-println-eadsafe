@@ -6,32 +6,31 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.lang.Thread;
+import java.util.concurrent.Executors;
 
-public class EchoServer implements Runnable {
+public class EchoServer {
 	public static final int PORT_NUMBER = 6013;
+	private int threadPoolSize = 1;
 
 	public static void main(String[] args) throws IOException, InterruptedException {
+
+		if (args[0] != null) {
+			threadPoolSize = args[0];
+		}
+
 		EchoServer server = new EchoServer();
 		server.start();
 	}
 
 	private void start() throws IOException, InterruptedException {
 		ServerSocket serverSocket = new ServerSocket(PORT_NUMBER);
+
+		// Thanks to https://www.geeksforgeeks.org/thread-pools-java/
+		ExecutorService pool = Executors.newFixedThreadPool(threadPoolSize);
+
 		while (true) {
-			Socket socket = serverSocket.accept();
-			InputStream inputStream = socket.getInputStream();
-			OutputStream outputStream = socket.getOutputStream();
-			int b;
-			while ((b = inputStream.read()) != -1) {
-				outputStream.write(b);
-			}
-
-			System.out.println("Saying goodbye to client's ScreenWriter");
-			socket.shutdownOutput();
+			ClientHandler client = new ClientHandler(serverSocket.accept());
+			pool.execute(client);
 		}
-	}
-
-	public void run() {
-
 	}
 }
