@@ -1,5 +1,10 @@
 package echoserver;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.lang.Thread;
+
 public class KeyboardReader implements Runnable {
   private Socket socket;
 
