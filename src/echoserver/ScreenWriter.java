@@ -13,13 +13,19 @@ public class ScreenWriter implements Runnable {
   }
 
   public void run() {
-    InputStream socketInputStream = socket.getInputStream();
-    int writeByte;
+    try {
+      // get input stream (from server)
+      InputStream socketInputStream = socket.getInputStream();
+      int writeByte;
 
-    while ((writeByte = socketInputStream.read()) != -1) {
-      System.out.write(writeByte);
+      // while the server is still sending stuff, print it to stdout
+      while ((writeByte = socketInputStream.read()) != -1) {
+        System.out.write(writeByte);
+      }
+
+    } catch (IOException ioe) {
+      System.out.println("Uh-oh!");
     }
-
-    socket.shutdownOutput();
   }
+
 }

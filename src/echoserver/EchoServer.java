@@ -24,6 +24,9 @@ public class EchoServer {
 			while ((b = inputStream.read()) != -1) {
 				outputStream.write(b);
 			}
+
+			System.out.println("Saying goodbye to client's ScreenWriter");
+			socket.shutdownOutput();
 		}
 	}
 }

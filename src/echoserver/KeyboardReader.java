@@ -13,13 +13,21 @@ public class KeyboardReader implements Runnable {
   }
 
   public void run() {
-		OutputStream socketOutputStream = socket.getOutputStream();
-    int readByte;
+    try {
+      // get input from keyboard
+      OutputStream socketOutputStream = socket.getOutputStream();
+      int readByte;
 
-    while ((readByte = System.in.read()) != -1) {
-      socketOutputStream.write(readByte);
+      // while there's still stuff in stdin, send it to the server
+      while ((readByte = System.in.read()) != -1) {
+        socketOutputStream.write(readByte);
+      }
+
+      System.out.println("Shutting down KeyboardReader");
+      socket.shutdownOutput();
+
+    } catch (IOException ioe) {
+      System.out.println("Uh-oh!");
     }
-
-    socket.shutdownOutput();
   }
 }
