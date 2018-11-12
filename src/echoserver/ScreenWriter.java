@@ -23,6 +23,8 @@ public class ScreenWriter implements Runnable {
         System.out.write(writeByte);
       }
 
+      System.out.flush();
+
     } catch (IOException ioe) {
       System.out.println("Uh-oh!");
     }
