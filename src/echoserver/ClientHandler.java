@@ -15,14 +15,20 @@ public class ClientHandler implements Runnable {
   }
 
   public void run() {
-    InputStream inputStream = socket.getInputStream();
-    OutputStream outputStream = socket.getOutputStream();
-    int b;
-    while ((b = inputStream.read()) != -1) {
-      outputStream.write(b);
-    }
+    try {
+      
+      InputStream inputStream = socket.getInputStream();
+      OutputStream outputStream = socket.getOutputStream();
+      int b;
+      while ((b = inputStream.read()) != -1) {
+        outputStream.write(b);
+      }
 
-    // System.out.println("Saying goodbye to client's ScreenWriter");
-    socket.shutdownOutput();
+      // System.out.println("Saying goodbye to client's ScreenWriter");
+      socket.shutdownOutput();
+
+    } catch (IOException ioe) {
+      System.out.println("Uh-oh!");
+    }
   }
 }
