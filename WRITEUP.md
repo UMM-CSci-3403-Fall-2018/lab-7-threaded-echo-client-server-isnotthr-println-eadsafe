@@ -19,8 +19,8 @@ Cores saturated nicely.
 The machine froze on the call for 500 for a little bit. :P Like you said in the readme, the script makes all the calls on the local machine. When I looked at mem usage in System Monitor, it was pretty much all in use.
 
 ## Thread pool size 8
-| ---: | ---: |
 | # of Calls | Time (s) |
+| --- | --- |
 | 100 | 12 |
 | 200 | 22 |
 | 300 | 31 |
