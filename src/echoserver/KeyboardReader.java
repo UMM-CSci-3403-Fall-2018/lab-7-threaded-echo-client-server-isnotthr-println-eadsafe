@@ -23,7 +23,7 @@ public class KeyboardReader implements Runnable {
         socketOutputStream.write(readByte);
       }
 
-      System.out.println("Shutting down KeyboardReader");
+      // System.out.println("Shutting down KeyboardReader");
       socket.shutdownOutput();
 
     } catch (IOException ioe) {
