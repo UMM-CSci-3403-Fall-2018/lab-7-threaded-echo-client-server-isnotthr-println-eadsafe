@@ -7,15 +7,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.lang.Thread;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 public class EchoServer {
 	public static final int PORT_NUMBER = 6013;
-	private int threadPoolSize = 1;
+	private static int threadPoolSize = 16;
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 
-		if (args[0] != null) {
-			threadPoolSize = args[0];
+		if (args.length == 1) {
+			threadPoolSize = Integer.parseInt(args[0]);
 		}
 
 		EchoServer server = new EchoServer();
