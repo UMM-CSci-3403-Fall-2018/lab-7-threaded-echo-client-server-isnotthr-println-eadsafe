@@ -6,8 +6,8 @@ I used test/etc/pumpkins.jpg as the file. It's not a VERY big file, but I figure
 Based on the results below, until the machine starts affecting performance in unrelated ways (like running out of memory), the runtime increases pretty much linearly with increasing the number of calls made.
 
 ## Thread pool size 16
-| ---: | ---: |
 | # of Calls | Time (s) |
+| --- | --- |
 | 100 | 10 |
 | 200 | 22 |
 | 300 | 32 |
